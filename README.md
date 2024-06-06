@@ -9,3 +9,4 @@ My first game experiment! Tutorial and original inspiration from [Tech with Tim'
 ## My additions
 - My own assets, including music and pixel art
 - Left side collision barrier
+- Falling off screen stops music and resets game
