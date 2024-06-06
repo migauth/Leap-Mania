@@ -227,13 +227,6 @@ def handle_move(player, objects, left_boundary):
         player.move_right(PLAYER_VEL)
         
     handle_vertical_collision(player, objects, player.y_vel)
-    
-def draw_left_boundary(window):
-    boundary_color = (255, 0, 0)  # Red color for the boundary line
-    boundary_start = (0, 0)
-    boundary_end = (0, HEIGHT)
-    boundary_thickness = 2  # Thickness of the boundary line
-    pygame.draw.line(window, boundary_color, boundary_start, boundary_end, boundary_thickness)
       
 def draw_window(window, background, bg_image, player, objects, offset_x):
     for tile in background:
@@ -243,15 +236,13 @@ def draw_window(window, background, bg_image, player, objects, offset_x):
         obj.draw(window, offset_x)
     
     player.draw(window, offset_x)
-    
-    # Draw the left boundary line
-    draw_left_boundary(window)
         
     pygame.display.update()
     
 def reset_game():
     block_size = 96
-    left_boundary = LeftBoundary(300, HEIGHT)
+    left_boundary = LeftBoundary(0, HEIGHT)
+    left_boundary.update_position(0)
     player = Player(0, 350, 100, 100)
     floor = [Block(i * block_size, HEIGHT - block_size, block_size) for i in range(-WIDTH // block_size, (WIDTH * 2) // block_size)]
     objects = [*floor, left_boundary, Block(0, HEIGHT - block_size * 2, block_size),
@@ -273,7 +264,7 @@ def reset_game():
                               Block(block_size * 40, HEIGHT - block_size * 2, block_size)]
     return player, objects
 
-WHITE = (255, 255, 255)
+
 BLACK = (0, 0, 0)
 
 def main_menu():
@@ -354,6 +345,7 @@ def main(window):
         if ((player.rect.right - offset_x >= WIDTH - scroll_area_width) and player.x_vel > 0):
             offset_x += player.x_vel
             left_boundary.update_position(offset_x)  # Update left boundary position
+            
 
         # if player.rect.y > HEIGHT:
         #     pygame.mixer.music.stop()
@@ -366,6 +358,7 @@ def main(window):
                 # Reset the game after the delay
                 player, objects = reset_game()
                 offset_x = 0
+                left_boundary.update_position(0)
                 fall_time = None
             
         # Print debug info
