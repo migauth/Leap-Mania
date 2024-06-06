@@ -214,19 +214,26 @@ def collide(player, objects, dx):
     player.update()
     return collided_object
         
-def handle_move(player, objects):
+def handle_move(player, objects, left_boundary):
     keys = pygame.key.get_pressed()
 
     player.x_vel = 0
     collide_left = collide(player, objects, -PLAYER_VEL * 2)
     collide_right = collide(player, objects, PLAYER_VEL * 2)
     
-    if keys[pygame.K_a] and not collide_left:
+    if keys[pygame.K_a] and not collide_left and player.rect.left > left_boundary.rect.right:
         player.move_left(PLAYER_VEL)
     if keys[pygame.K_d] and not collide_right:
         player.move_right(PLAYER_VEL)
         
     handle_vertical_collision(player, objects, player.y_vel)
+    
+def draw_left_boundary(window):
+    boundary_color = (255, 0, 0)  # Red color for the boundary line
+    boundary_start = (0, 0)
+    boundary_end = (0, HEIGHT)
+    boundary_thickness = 2  # Thickness of the boundary line
+    pygame.draw.line(window, boundary_color, boundary_start, boundary_end, boundary_thickness)
       
 def draw_window(window, background, bg_image, player, objects, offset_x):
     for tile in background:
@@ -236,6 +243,9 @@ def draw_window(window, background, bg_image, player, objects, offset_x):
         obj.draw(window, offset_x)
     
     player.draw(window, offset_x)
+    
+    # Draw the left boundary line
+    draw_left_boundary(window)
         
     pygame.display.update()
     
@@ -244,7 +254,7 @@ def reset_game():
     left_boundary = LeftBoundary(300, HEIGHT)
     player = Player(0, 350, 100, 100)
     floor = [Block(i * block_size, HEIGHT - block_size, block_size) for i in range(-WIDTH // block_size, (WIDTH * 2) // block_size)]
-    objects = [left_boundary, Block(0, HEIGHT - block_size * 2, block_size),
+    objects = [*floor, left_boundary, Block(0, HEIGHT - block_size * 2, block_size),
                               Block(block_size * 3, HEIGHT - block_size * 4, block_size),
                               Block(block_size * 5, HEIGHT - block_size * 4, block_size),
                               Block(block_size * 10, HEIGHT - block_size * 4, block_size),
@@ -296,7 +306,7 @@ def main(window):
     
     # Initialize variables
     block_size = 96
-    left_boundary = LeftBoundary(300, HEIGHT)
+    left_boundary = LeftBoundary(0, HEIGHT)
     player = Player(0, 350, 100, 100)
     floor = [Block(i * block_size, HEIGHT - block_size, block_size) for i in range(-WIDTH // block_size, (WIDTH * 2) // block_size)]
     objects = [left_boundary, Block(0, HEIGHT - block_size * 2, block_size),
@@ -338,7 +348,7 @@ def main(window):
                     player.jump()
 
         player.loop(FPS)
-        handle_move(player, objects)
+        handle_move(player, objects, left_boundary)
         
         # Track player moving right
         if ((player.rect.right - offset_x >= WIDTH - scroll_area_width) and player.x_vel > 0):
@@ -359,7 +369,7 @@ def main(window):
                 fall_time = None
             
         # Print debug info
-        print(f"Player X: {player.rect.x}")
+        print(f"Player X: {player.rect.x}, Offset X: {offset_x}, Left Boundary X: {left_boundary.rect.x}")
             
         draw_window(window, background, bg_image, player, objects, offset_x)
 
