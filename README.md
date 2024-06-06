@@ -4,7 +4,7 @@ My first game experiment! Tutorial and original inspiration from [Tech with Tim'
 
 !["Leap Mania Title"](https://github.com/migauth/Leap-Mania/blob/main/assets/title.png?raw=true)
 
-!["Leap Mania Screenshot"](https://github.com/migauth/Leap-Mania/blob/main/assets/title.png?raw=true)
+!["Leap Mania Screenshot"](https://github.com/migauth/Leap-Mania/blob/main/assets/LM.png?raw=true)
 
 ## My additions
 - My own assets, including music and pixel art
