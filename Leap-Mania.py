@@ -353,8 +353,6 @@ def main(window):
 
         if player.rect.y > HEIGHT:
             pygame.mixer.music.stop()
-            # pygame.mixer.music.load("assets/Music/dead.wav")
-            # pygame.mixer.music.play(-1)
             
             
          # Check if player fell off the edge
