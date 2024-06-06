@@ -366,8 +366,8 @@ def main(window):
                 left_boundary.update_position(0)
                 fall_time = None
             
-        # Print debug info
-        print(f"Player X: {player.rect.x}, Offset X: {offset_x}, Left Boundary X: {left_boundary.rect.x}")
+        # # Print debug info
+        # print(f"Player X: {player.rect.x}, Offset X: {offset_x}, Left Boundary X: {left_boundary.rect.x}")
             
         draw_window(window, background, bg_image, player, objects, offset_x)
 
