@@ -249,7 +249,7 @@ def reset_game():
     left_boundary.update_position(0)
     player = Player(0, 350, 100, 100)
     floor = [Block(i * block_size, HEIGHT - block_size, block_size) for i in range(-WIDTH // block_size, (WIDTH * 2) // block_size)]
-    objects = [*floor, left_boundary, Block(0, HEIGHT - block_size * 2, block_size),
+    objects = [left_boundary, Block(0, HEIGHT - block_size * 2, block_size),
                               Block(block_size * 3, HEIGHT - block_size * 4, block_size),
                               Block(block_size * 5, HEIGHT - block_size * 4, block_size),
                               Block(block_size * 10, HEIGHT - block_size * 4, block_size),
@@ -351,8 +351,11 @@ def main(window):
             left_boundary.update_position(offset_x)  # Update left boundary position
             
 
-        # if player.rect.y > HEIGHT:
-        #     pygame.mixer.music.stop()
+        if player.rect.y > HEIGHT:
+            pygame.mixer.music.stop()
+            # pygame.mixer.music.load("assets/Music/dead.wav")
+            # pygame.mixer.music.play(-1)
+            
             
          # Check if player fell off the edge
         if player.rect.y > HEIGHT:
