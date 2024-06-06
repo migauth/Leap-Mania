@@ -240,6 +240,10 @@ def draw_window(window, background, bg_image, player, objects, offset_x):
     pygame.display.update()
     
 def reset_game():
+    pygame.mixer.init()  # Initialize the mixer module
+    pygame.mixer.music.load("assets/Music/ohno.wav")  # Load the music file
+    pygame.mixer.music.play(-1)  # Play the music indefinitely (-1)
+    
     block_size = 96
     left_boundary = LeftBoundary(0, HEIGHT)
     left_boundary.update_position(0)
