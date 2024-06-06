@@ -245,12 +245,47 @@ def reset_game():
     player = Player(0, 350, 100, 100)
     floor = [Block(i * block_size, HEIGHT - block_size, block_size) for i in range(-WIDTH // block_size, (WIDTH * 2) // block_size)]
     objects = [left_boundary, Block(0, HEIGHT - block_size * 2, block_size),
-               Block(block_size * 3, HEIGHT - block_size * 4, block_size),
-               Block(block_size * 5, HEIGHT - block_size * 4, block_size),
-               Block(block_size * 10, HEIGHT - block_size * 4, block_size),
-               Block(block_size * 20, HEIGHT - block_size * 4, block_size),
-               Block(block_size * 18, HEIGHT - block_size * 3, block_size)]
+                              Block(block_size * 3, HEIGHT - block_size * 4, block_size),
+                              Block(block_size * 5, HEIGHT - block_size * 4, block_size),
+                              Block(block_size * 10, HEIGHT - block_size * 4, block_size),
+                              Block(block_size * 20, HEIGHT - block_size * 4, block_size),
+                              Block(block_size * 18, HEIGHT - block_size * 3, block_size),
+                              Block(block_size * 15, HEIGHT - block_size * 2, block_size),
+                              Block(block_size * 19, HEIGHT - block_size * 3, block_size),
+                              Block(block_size * 22, HEIGHT - block_size * 4, block_size),
+                              Block(block_size * 25, HEIGHT - block_size * 3, block_size),
+                              Block(block_size * 27, HEIGHT - block_size * 2, block_size),
+                              Block(block_size * 30, HEIGHT - block_size * 4, block_size),
+                              Block(block_size * 32, HEIGHT - block_size * 3, block_size),
+                              Block(block_size * 33, HEIGHT - block_size * 2, block_size),
+                              Block(block_size * 36, HEIGHT - block_size * 4, block_size),
+                              Block(block_size * 38, HEIGHT - block_size * 3, block_size),
+                              Block(block_size * 40, HEIGHT - block_size * 2, block_size)]
     return player, objects
+
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+
+def main_menu():
+    run = True
+    window.fill(BLACK)
+    # Load the title image
+    title_image = pygame.image.load(join('assets', 'title.png')).convert_alpha()
+    # Get the rect of the image to center it
+    title_image_rect = title_image.get_rect(center=(WIDTH // 2, HEIGHT // 2))
+    
+    while run:
+        window.fill(BLACK)
+        window.blit(title_image, title_image_rect)
+        pygame.display.update()
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                run = False
         
 # Game event loop
 def main(window):
@@ -265,17 +300,22 @@ def main(window):
     player = Player(0, 350, 100, 100)
     floor = [Block(i * block_size, HEIGHT - block_size, block_size) for i in range(-WIDTH // block_size, (WIDTH * 2) // block_size)]
     objects = [left_boundary, Block(0, HEIGHT - block_size * 2, block_size),
-               Block(block_size * 1, HEIGHT - block_size * 2, block_size),
-               Block(block_size * 3, HEIGHT - block_size * 4, block_size),
-               Block(block_size * 5, HEIGHT - block_size * 4, block_size),
-               Block(block_size * 7, HEIGHT - block_size * 2, block_size),
-               Block(block_size * 10, HEIGHT - block_size * 4, block_size),
-               Block(block_size * 13, HEIGHT - block_size * 4, block_size),
-               Block(block_size * 17, HEIGHT - block_size * 3, block_size),
-               Block(block_size * 21, HEIGHT - block_size * 3, block_size),
-               Block(block_size * 24, HEIGHT - block_size * 3, block_size),
-               Block(block_size * 26, HEIGHT - block_size * 2, block_size),]
-    
+                              Block(block_size * 3, HEIGHT - block_size * 4, block_size),
+                              Block(block_size * 5, HEIGHT - block_size * 4, block_size),
+                              Block(block_size * 10, HEIGHT - block_size * 4, block_size),
+                              Block(block_size * 20, HEIGHT - block_size * 4, block_size),
+                              Block(block_size * 18, HEIGHT - block_size * 3, block_size),
+                              Block(block_size * 15, HEIGHT - block_size * 2, block_size),
+                              Block(block_size * 19, HEIGHT - block_size * 3, block_size),
+                              Block(block_size * 22, HEIGHT - block_size * 4, block_size),
+                              Block(block_size * 25, HEIGHT - block_size * 3, block_size),
+                              Block(block_size * 27, HEIGHT - block_size * 2, block_size),
+                              Block(block_size * 30, HEIGHT - block_size * 4, block_size),
+                              Block(block_size * 32, HEIGHT - block_size * 3, block_size),
+                              Block(block_size * 33, HEIGHT - block_size * 2, block_size),
+                              Block(block_size * 36, HEIGHT - block_size * 4, block_size),
+                              Block(block_size * 38, HEIGHT - block_size * 3, block_size),
+                              Block(block_size * 40, HEIGHT - block_size * 2, block_size)]
     # Initialize variables
     reset_delay = 2000  # 4 seconds in milliseconds
     fall_time = None
@@ -328,4 +368,5 @@ def main(window):
     quit()
     
 if __name__ == "__main__":
+    main_menu()
     main(window)
